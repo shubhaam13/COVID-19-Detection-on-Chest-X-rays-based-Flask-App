@@ -142,5 +142,5 @@ def uploaded_ct():
    return render_template('results_ct.html',inception_ct_pred=inception_ct_pred,)
 
 if __name__ == '__main__':
-   app.secret_key = ".."
-   app.run()
+   port = int(os.environ.get('PORT', 5000))
+   app.run(host="0.0.0.0", port=port)
