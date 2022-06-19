@@ -103,44 +103,7 @@ def uploaded_chest():
 
    return render_template('results_chest.html',inception_chest_pred=inception_chest_pred,)
 
-@app.route('/uploaded_ct', methods = ['POST', 'GET'])
-def uploaded_ct():
-   if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file:
-            # filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], 'upload_ct.jpg'))
 
-   inception_ct = load_model('models/inception_ct.h5')
-  
-
-   image = cv2.imread('./flask app/assets/images/upload_ct.jpg') # read file 
-   image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # arrange format as per keras
-   image = cv2.resize(image,(224,224))
-   image = np.array(image) / 255
-   image = np.expand_dims(image, axis=0)
-   
-
-   inception_pred = inception_ct.predict(image)
-   probability = inception_pred[0]
-   print("Predictions:")
-   if probability[0] > 0.5:
-      inception_ct_pred = str('%.2f' % (probability[0]*100) + '% COVID') 
-   else:
-      inception_ct_pred = str('%.2f' % ((1-probability[0])*100) + '% NonCOVID')
-   print(inception_ct_pred)
-
-   return render_template('results_ct.html',inception_ct_pred=inception_ct_pred,)
-
 if __name__ == '__main__':
-   port = int(os.environ.get('PORT', 5000))
-   app.run(host="0.0.0.0", port=port)
+   app.run(debug=True)
