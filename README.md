@@ -21,7 +21,7 @@ This project uses a number of open source projects to work properly:
 This project requires the standard [Python](https://www.python.org/) 3.6+ to run
 
 ```sh
-$ git clone https://github.com/SukhyAnand/COVID-19-Detection-Using-Deep-Learning.git
+$ git clone https://github.com/shubhaam13/COVID-19-Detection-on-Chest-X-rays-based-Flask-App.git
 $ cd COVID-19-Detection-Using-Deep-Learning
 $ pip install -r requirements.txt
 ```
